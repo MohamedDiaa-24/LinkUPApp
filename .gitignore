@@ -484,3 +484,6 @@ $RECYCLE.BIN/
 *.swp
 LinkUpApp.API/appsettings.json
 .vscode/settings.json
+linkup-client/.vscode/tasks.json
+linkup-client/.vscode/launch.json
+linkup-client/.vscode/launch.json
