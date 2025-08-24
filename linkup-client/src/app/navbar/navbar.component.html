@@ -1,0 +1,81 @@
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+  <div class="container">
+    <a class="navbar-brand" href="#">LinkUp App</a>
+
+    <button
+      class="navbar-toggler collapsed"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarCollapse"
+      aria-controls="navbarCollapse"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <!-- start nav -->
+    <div class="navbar-collapse collapse" id="navbarCollapse">
+      @if(accountService.currentUser()){
+      <ul class="navbar-nav me-auto mb-2 mb-md-0">
+        <li class="nav-item">
+          <a class="nav-link">Matches</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link">Lists</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link">Messages</a>
+        </li>
+      </ul>
+      }
+      <!-- end nav -->
+      <!-- start  login form -->
+      @if(!accountService.currentUser()){
+      <form
+        #loginForm="ngForm"
+        (ngSubmit)="Login()"
+        class="d-flex ms-auto"
+        autocomplete="off"
+      >
+        <input
+          class="form-control me-2"
+          [(ngModel)]="model.username"
+          type="text"
+          name="username"
+          placeholder="username"
+        />
+        <input
+          class="form-control me-2"
+          [(ngModel)]="model.password"
+          name="password"
+          type="password"
+          placeholder="password"
+        />
+        <button class="btn btn-outline-success" type="submit">Login</button>
+      </form>
+      }
+      <!-- end login form -->
+      <!-- start user select -->
+      @if(accountService.currentUser()){
+      <div class="dropdown">
+        <button
+          class="btn btn-dark text-light dropdown-toggle"
+          type="button"
+          id="dropdownMenuButton1"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          Welcome user
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <li><a class="dropdown-item" href="#">Edit profile</a></li>
+          <li>
+            <button class="dropdown-item" (click)="Logout()">Logout</button>
+          </li>
+        </ul>
+      </div>
+      }
+      <!-- start user select -->
+    </div>
+  </div>
+</nav>
