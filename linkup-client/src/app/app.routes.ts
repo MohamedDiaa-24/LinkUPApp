@@ -5,6 +5,8 @@ import { MemberDetailComponent } from './Members/member-detail/member-detail.com
 import { ListsComponent } from './lists/lists.component';
 import { MessagesComponent } from './messages/messages.component';
 import { authGuard } from './guards/auth.guard';
+import { TestErrorComponent } from './errors/test-error/test-error.component';
+import { Component } from '@angular/core';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -13,7 +15,7 @@ export const routes: Routes = [
     canActivate: [authGuard],
     children: [
       {
-      path: 'members',
+        path: 'members',
         component: MemberListComponent,
         canActivate: [authGuard],
       },
@@ -22,5 +24,6 @@ export const routes: Routes = [
       { path: 'messages', component: MessagesComponent },
     ],
   },
+  { path: 'errors', component: TestErrorComponent },
   { path: '**', component: HomeComponent, pathMatch: 'full' },
 ];
