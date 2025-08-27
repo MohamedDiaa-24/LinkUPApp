@@ -14,6 +14,7 @@ export class RegisterComponent {
   accountService = inject(AccountService);
   private toastrService = inject(ToastrService);
 
+  validationErrors =[]
   cancelRegister = output<boolean>();
   model: any = {};
 
@@ -23,8 +24,11 @@ export class RegisterComponent {
         console.log(res);
         this.cancel();
       },
-      error: (err) => this.toastrService.error(err.error),
-
+      error: (err) => {
+        // this.toastrService.error(err);
+        this.validationErrors = err;
+        console.log( this.validationErrors);
+      },
       complete: () => console.log('complete register'),
     });
   }
