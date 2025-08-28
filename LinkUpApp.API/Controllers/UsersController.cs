@@ -1,34 +1,30 @@
 using System.Threading.Tasks;
+using AutoMapper;
 using LinkUpApp.API.Data;
+using LinkUpApp.API.DTOs;
 using LinkUpApp.API.Entities;
+using LinkUpApp.API.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace LinkUpApp.API.Controllers;
 
-public class UsersController : BaseApiController
+[Authorize]
+public class UsersController(IUserRepository userRepository) : BaseApiController
 {
-    private readonly DataContext _context;
-
-    public UsersController(DataContext context)
-    {
-        _context = context;
-    }
 
     [HttpGet]
-    [AllowAnonymous]
     public async Task<ActionResult<IEnumerable<AppUser>>> GetUsers()
     {
-        var users = await _context.Users.ToListAsync();
+        var users = await userRepository.GetMembersAsync();
         return Ok(users);
     }
 
-    [HttpGet("{id:int}")]
-    [Authorize]
-    public async Task<ActionResult<AppUser>> GetUser(int id)
+    [HttpGet("{userName}")]
+    public async Task<ActionResult<MemberDto>> GetUser(string userName)
     {
-        var user = await _context.Users.FindAsync(id);
+        var user = await userRepository.GetMemberAsync(userName);
         if (user is null) return NotFound();
         return Ok(user);
     }
